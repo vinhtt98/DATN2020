@@ -1,0 +1,150 @@
+{
+    "stageIndex": 2,
+    "waves": [
+        {
+            "waveIndex": 0,
+            "enemies": [
+                {
+                    "enemyType": 0,
+                    "spawnTime": 3,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 9,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 15,
+                    "laneIndex": 2
+                }
+            ]
+        },
+        {
+            "waveIndex": 1,
+            "enemies": [
+                {
+                    "enemyType": 1,
+                    "spawnTime": 20,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 22,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 24,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 25,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 26,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 27,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 28,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 29,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 31,
+                    "laneIndex": 1
+                }
+            ]
+        },
+        {
+            "waveIndex": 2,
+            "enemies": [
+                {
+                    "enemyType": 2,
+                    "spawnTime": 40,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 41,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 42,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 43,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 45,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 47,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 49,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 0,
+                    "spawnTime": 52,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 55,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 56,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 57,
+                    "laneIndex": 2
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 58,
+                    "laneIndex": 0
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 59,
+                    "laneIndex": 1
+                },
+                {
+                    "enemyType": 1,
+                    "spawnTime": 60,
+                    "laneIndex": 2
+                }
+            ]
+        }
+    ]
+}

@@ -1,0 +1,51 @@
+Bullet Damage: 1
+Bullet Speed: 15
+Life Time: 10
+
+Enemy 1 HP: 15
+Movement Speed: 4
+Hit Damage: 5
+Attack Rate: 2
+
+Enemy 2 HP: 10
+Movement Speed: 8
+Hit Damage: 8
+Attack Rate: 4
+
+Enemy 3 HP: 500
+Movement Speed: 1
+Hit Damage: 20
+Attack Rate: 3
+
+Tower HP: 200
+
+Trap 1 - Booby
+
+Damage: 2
+Duration: 5
+Damage Interval: 0.5
+Cooldown: 10
+
+Buffed Damage: 6
+Buffed Duration: 5
+
+Trap 2 - Bomb
+
+Damage: 10
+Explosion Radius: 2
+Duration: 10
+Cooldown: 15
+
+Buffed Damage: 10
+Buffed Explosion Radius: 5
+Buffed Duration: 15
+Time Before Detonate: 3
+
+Trap 3 - Bomb
+
+Slow Percentage: 50%
+Duration: 10
+Cooldown: 15
+
+Buffed Slow Percentage: 100%
+Buffed Duration: 10
