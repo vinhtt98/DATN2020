@@ -1,13 +1,10 @@
-# god-defense
+# ar-furniture
 
-* Project cho môn học đồ họa và hiện thực ảo. 
+* Project cho môn học Đồ án tốt nghiệp. 
 * Các thành viên trong nhóm:
 
 |   Tên thành viên       |   MSSV   |
 |------------------------|----------|
-|   Bùi Trung Hiếu       | 20161498 |
-|   Phạm Quang Hòa       | 20161743 |
-|   Bùi Phan Thanh Cường | 20160527 |
 |   Tôn Thiện Vĩnh       | 20164769 |
 
 ## Thông tin
@@ -25,18 +22,6 @@
 * Nature Kit: https://kenney.nl/assets/nature-kit
 * Graveyard Kit: https://kenney.nl/assets/graveyard-kit
 * Platformer Kit: https://kenney.nl/assets/platformer-kit
-
-### Enemies
-
-* Animated Characters 1: https://kenney.nl/assets/animated-characters
-* Animated Characters 2: https://kenney.nl/assets/animated-characters-2
-* Blocky Characters: https://kenney.nl/assets/blocky-characters
-
-### Weapons (bullets)
-
-* Weapon Pack: https://kenney.nl/assets/weapon-pack
-
-### Traps
 
 ### Một số nguồn khác, sẽ dùng nếu thiếu:
 

@@ -10,8 +10,9 @@ public class BoxTransform : MonoBehaviour
     private GameObject _vertexPrefab;
     [SerializeField]
     private GameObject _edgePrefab;
-    public GameObject targetGameObject;
-    
+    [SerializeField]
+    private Transform parentObject;
+    private GameObject targetGameObject;
     private LineRenderer[] lineRenderers;
     private Vector3 v3FrontTopLeft;
     private Vector3 v3FrontTopRight;
@@ -31,19 +32,28 @@ public class BoxTransform : MonoBehaviour
             lineRenderers[i].startWidth = width;
             lineRenderers[i].endWidth = width;
             lineRenderers[i].material = new Material(Shader.Find("Unlit/Texture"));
-            lineRenderers[i].transform.SetParent(transform, false);
+            lineRenderers[i].transform.SetParent(parentObject, false);
         }
 
         edges = new GameObject[12];
         for (int i=0; i<12; i++) {
-            edges[i] = Instantiate(_edgePrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+            edges[i] = Instantiate(_edgePrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObject);
         }
 
         vertices = new GameObject[8];
         for (int i=0; i<8; i++) {
-            vertices[i] = Instantiate(_vertexPrefab, new Vector3(0, 0, 0), Quaternion.identity, transform);
+            vertices[i] = Instantiate(_vertexPrefab, new Vector3(0, 0, 0), Quaternion.identity, parentObject);
         }
-    } 
+    }
+
+    void OnEnable() {
+        targetGameObject = GameObject.Find("GameManager").GetComponent<ObjectManager>().targetGameObject.transform.GetChild(0).gameObject;
+        parentObject.gameObject.SetActive(true);
+    }
+
+    void OnDisable() {
+        parentObject.gameObject.SetActive(false);
+    }
      
     void Update() {
         CalcPositons();
@@ -119,19 +129,5 @@ public class BoxTransform : MonoBehaviour
         vertices[5].transform.SetPositionAndRotation(v3BackTopRight, transform.rotation);
         vertices[6].transform.SetPositionAndRotation(v3BackBottomLeft, transform.rotation);
         vertices[7].transform.SetPositionAndRotation(v3BackBottomRight, transform.rotation);
-    }
-
-    void OnDrawGizmosSelected() {
-        BoxCollider b = targetGameObject.GetComponent<BoxCollider>();
- 
-        Gizmos.color = Color.green;
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(-b.size.x, b.size.y, -b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(b.size.x, b.size.y, -b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(-b.size.x, -b.size.y, -b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(b.size.x, -b.size.y, -b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(-b.size.x, b.size.y, b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(b.size.x, b.size.y, b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(-b.size.x, -b.size.y, b.size.z)*0.5f), 0.11f);
-        Gizmos.DrawSphere(targetGameObject.transform.TransformPoint(b.center + new Vector3(b.size.x, -b.size.y, b.size.z)*0.5f), 0.11f);
     }
 }
