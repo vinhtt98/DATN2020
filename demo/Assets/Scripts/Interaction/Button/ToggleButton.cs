@@ -9,13 +9,14 @@ public class ToggleButton : MonoBehaviour
     public Sprite holdBtnSprite;
     private bool isHold;
     // Start is called before the first frame update
-    void Start()
+    private void Awake()
     {
         isHold = false;
         transform.GetComponent<Image>().sprite = btnSprite;
     }
 
-    public void setHold(bool value) {
+    public void setHold(bool value)
+    {
         isHold = value;
         if (isHold)
             transform.GetComponent<Image>().sprite = holdBtnSprite;
@@ -26,6 +27,6 @@ public class ToggleButton : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

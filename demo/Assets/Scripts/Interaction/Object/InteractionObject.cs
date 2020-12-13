@@ -33,11 +33,23 @@ public class InteractionObject : MonoBehaviour, IPointerDownHandler, IPointerCli
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
-        if (objectManager.targetGameObject != this.gameObject) {
+        if (objectManager.targetGameObject != this.gameObject)
+        {
             objectManager.setTargetGameObject(null);
             objectManager.setTargetGameObject(this.gameObject);
+
+            int id = int.Parse(this.gameObject.name);
+            DeployObjectProperty property;
+            if (ABUtils.goPropDict.TryGetValue(id, out property))
+            {
+                objectManager.objectSize = property.objectSize;
+                objectManager.isCanResize = property.isCanResize;
+                objectManager.isOnVerticalPlane = property.isOnVerticalPlane;
+                objectManager.isOnCeil = property.isOnCeil;
+            }
         }
-        else {
+        else
+        {
             objectManager.setTargetGameObject(null);
         }
     }
@@ -61,14 +73,15 @@ public class InteractionObject : MonoBehaviour, IPointerDownHandler, IPointerCli
     {
         // Debug.Log("Mouse Up");
     }
-    
+
     // Start is called before the first frame update
-    void Start() {
-        objectManager =  GameObject.Find("GameManager").GetComponent<ObjectManager>();
+    void Start()
+    {
+        objectManager = GameObject.Find("GameManager").GetComponent<ObjectManager>();
         moveComponent = GameObject.Find("Interaction").GetComponent<MoveObject>();
         rotateComponent = GameObject.Find("Interaction").GetComponent<RotateObject>();
         resizeComponent = GameObject.Find("Interaction").GetComponent<ResizeObject>();
-        boxComponent =  GameObject.Find("Interaction").GetComponent<BoxTransform>();
+        boxComponent = GameObject.Find("Interaction").GetComponent<BoxTransform>();
 
         boxComponent.enabled = false;
     }

@@ -1,7 +1,10 @@
 ManifestFileVersion: 0
-CRC: 300285813
+CRC: 3114537291
 AssetBundleManifest:
   AssetBundleInfos:
     Info_0:
       Name: furniture
+      Dependencies: {}
+    Info_1:
+      Name: default
       Dependencies: {}

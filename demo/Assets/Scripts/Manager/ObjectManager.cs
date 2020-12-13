@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.EventSystems;
-using UnityEngine.Networking;
 
 public class ObjectManager : MonoBehaviour
 {
     public GameObject targetGameObject;
+    [SerializeField]
+    public GameObject deployParent;
+    private RoomManager roomManager;
     private ResizeObject resizeComponent;
     private BoxTransform boxComponent;
     public Vector3 objectSize;
@@ -31,12 +33,13 @@ public class ObjectManager : MonoBehaviour
     {
         addPhysicsRaycaster();
 
+        roomManager = transform.GetComponent<RoomManager>();
         resizeComponent = GameObject.Find("Interaction").GetComponent<ResizeObject>();
         boxComponent = GameObject.Find("Interaction").GetComponent<BoxTransform>();
 
         Debug.Log(Application.persistentDataPath);
 
-        deployObject(targetGameObject, new Vector3(0, 0, 4.78f));
+        var test = ABUtils.Instance;
     }
 
     public void setTargetGameObject(GameObject gameObject)
@@ -45,25 +48,22 @@ public class ObjectManager : MonoBehaviour
         bool enable = (gameObject != null);
         boxComponent.enabled = enable;
         resizeComponent.setBtn(enable);
+        roomManager.setBtn(!enable);
     }
 
-    public void setObjectSize(float width, float length, float height)
-    {
-        objectSize = new Vector3(length, height, width);
-    }
-
-    public void deployObject(GameObject gameObject, Vector3 position)
+    public void deployObject(string name, GameObject gameObject, Vector3 position)
     {
         GameObject parent = new GameObject();
-        GameObject children = Instantiate(gameObject);
+        GameObject children = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
         setBoxCollider(children);
         children.transform.SetParent(parent.transform);
 
         BoxCollider boxCollider = children.GetComponent<BoxCollider>();
-        Vector3 pos = -boxCollider.center + new Vector3(0, boxCollider.size.y/2, 0);
+        Vector3 pos = -boxCollider.center + new Vector3(0, boxCollider.size.y / 2, 0);
         if (isOnCeil)
             pos.y -= boxCollider.size.y;
-        if (isOnVerticalPlane) {
+        if (isOnVerticalPlane)
+        {
             pos.y -= boxCollider.size.y / 2;
             pos.z -= boxCollider.size.z / 2;
         }
@@ -71,11 +71,15 @@ public class ObjectManager : MonoBehaviour
 
         parent.AddComponent<InteractionObject>();
         parent.AddComponent<DragMove>();
-        foreach (Transform trans in parent.GetComponentsInChildren<Transform>(true)) {
+        foreach (Transform trans in parent.GetComponentsInChildren<Transform>(true))
+        {
             trans.gameObject.layer = LayerMask.NameToLayer(deployLayer);
         }
 
         parent.transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, 0));
+        parent.name = name;
+
+        parent.transform.parent = deployParent.transform;
     }
 
     private void setBoxCollider(GameObject gameObject)
@@ -102,25 +106,5 @@ public class ObjectManager : MonoBehaviour
         }
         boxCollider.size = totalBound.size;
         boxCollider.center = totalBound.center;
-    }
-
-
-    IEnumerator DownloadAsset()
-    {
-        string assetBundleName = "furniture";
-        string url = "file:///" + Application.persistentDataPath + "/AssetBundles/" + assetBundleName;
-        using (UnityWebRequest request = UnityWebRequestAssetBundle.GetAssetBundle(url, 0))
-        {
-            yield return request.SendWebRequest();
-            if (request.isNetworkError || request.isHttpError)
-            {
-                Debug.Log(request.error);
-            }
-            else
-            {
-                // Get downloaded asset bundle
-                AssetBundle bundle = DownloadHandlerAssetBundle.GetContent(request);
-            }
-        }
     }
 }

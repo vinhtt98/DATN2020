@@ -28,7 +28,8 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     public void OnDrag(PointerEventData eventData)
     {
         UpdatePlacementPose(eventData.position);
-        if (placementPoseIsValid) {
+        if (placementPoseIsValid)
+        {
             Vector3 pos = placementPose.position;
             pos.x += 0.01f;
             pos.y += 0.01f;
@@ -48,7 +49,7 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     // Start is called before the first frame update
     void Start()
     {
-        objectManager =  GameObject.Find("GameManager").GetComponent<ObjectManager>();
+        objectManager = GameObject.Find("GameManager").GetComponent<ObjectManager>();
         moveComponent = GameObject.Find("Interaction").GetComponent<MoveObject>();
         checkComponent = GameObject.Find("Interaction").GetComponent<CheckValidObject>();
 
@@ -62,9 +63,18 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         arOrigin.Raycast(touchPos, hits, TrackableType.Planes);
 
         placementPoseIsValid = hits.Count > 0;
+
         if (placementPoseIsValid)
         {
             placementPose = hits[0].pose;
+
+            PlaneAlignment align = arOrigin.GetComponent<ARPlaneManager>().TryGetPlane(hits[0].trackableId).boundedPlane.Alignment;
+            placementPoseIsValid |= (objectManager.isOnVerticalPlane && (align != PlaneAlignment.Horizontal));
+
+            placementPoseIsValid |= (objectManager.isOnCeil && (Camera.main.ScreenToWorldPoint(touchPos).y < placementPose.position.y));
+
+            if (!placementPoseIsValid)
+                return;
 
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;
