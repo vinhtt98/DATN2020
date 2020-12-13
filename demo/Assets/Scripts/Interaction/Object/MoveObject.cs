@@ -6,15 +6,18 @@ public class MoveObject : MonoBehaviour
 {
     private GameObject targetGameObject;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    void OnEnable()
+    public void OnSelected()
     {
         targetGameObject = GameObject.Find("GameManager").GetComponent<ObjectManager>().targetGameObject;
+    }
+
+    public void OnDeselected()
+    {
+    }
+
+    public void OnDrag(Vector3 pos)
+    {
+        targetGameObject.transform.position = pos;
     }
 
     // Update is called once per frame

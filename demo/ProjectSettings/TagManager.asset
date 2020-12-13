@@ -27,15 +27,15 @@ TagManager:
   - UI
   - 
   - 
-  - PostProcessing
-  - Ground
-  - Decoration
-  - Spawner
-  - Wall
-  - Waypoint
-  - Enemy
-  - Tower
-  - Trap
+  - DeployObject
+  - PlaneObject
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
+  - 
   - 
   - 
   - 

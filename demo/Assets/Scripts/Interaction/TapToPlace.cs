@@ -45,13 +45,13 @@ public class TapToPlace : MonoBehaviour
     {
         if (arReferencePointManager != null)
         {
-            arReferencePointManager.referencePointPrefab = objectToPlace;
+            // arReferencePointManager.referencePointPrefab = objectToPlace;
             // arReferencePointManager.referencePointPrefab.transform.localScale = objectToPlace.transform.localScale / 25;
             ARReferencePoint referencePoint = arReferencePointManager.TryAddReferencePoint(placementPose);
             // referencePoint.transform.rotation = Quaternion.Euler(0, 0, 0);
         }
-        // var goStage = Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
-        // goStage.transform.rotation = Quaternion.Euler(0, 0, 0);
+        var goStage = Instantiate(objectToPlace,placementPose.position, placementPose.rotation);
+        goStage.transform.rotation = Quaternion.Euler(0, 0, 0);
 
         if (arPlaneManager != null)
         {
@@ -77,8 +77,9 @@ public class TapToPlace : MonoBehaviour
             }
         }
 
-        // placementIndicator.SetActive(false);
+        placementIndicator.SetActive(false);
         // this.gameObject.SetActive(false);
+        this.enabled = false;
     }
 
     private void UpdatePlacementIndicator()

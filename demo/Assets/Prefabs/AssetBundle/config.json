@@ -1,0 +1,138 @@
+[
+    {
+        "id": 1,
+        "width": 2.0,
+        "length": 4.0,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10001,
+        "width": 0.7,
+        "length": 0.8,
+        "height": 1.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10002,
+        "width": 4.2,
+        "length": 1.8,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10003,
+        "width": 4.0,
+        "length": 1.5,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10004,
+        "width": 4.0,
+        "length": 2.8,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10005,
+        "width": 1.6,
+        "length": 1.4,
+        "height": 1.4,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10006,
+        "width": 0.5,
+        "length": 0.5,
+        "height": 0.6,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20001,
+        "width": 0.6,
+        "length": 0.5,
+        "height": 0.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20002,
+        "width": 1.4,
+        "length": 2.8,
+        "height": 0.8,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20003,
+        "width": 1.4,
+        "length": 2.8,
+        "height": 0.8,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 30001,
+        "width": 1.6,
+        "length": 0.9,
+        "height": 2.3,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 40001,
+        "width": 1.8,
+        "length": 0.7,
+        "height": 3.4,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 40002,
+        "width": 1.6,
+        "length": 0.2,
+        "height": 3.0,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    },
+    {
+        "id": 40003,
+        "width": 1.7,
+        "length": 0.3,
+        "height": 3.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    },
+    {
+        "id": 40004,
+        "width": 1.7,
+        "length": 0.3,
+        "height": 3.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    }
+    
+]
