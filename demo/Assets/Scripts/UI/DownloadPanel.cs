@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
 using UnityEngine.UI;
+using TMPro;
 
-public class ScrollPanel : MonoBehaviour
+public class DownloadPanel : MonoBehaviour
 {
     [SerializeField]
     protected int rows = 1;
@@ -13,33 +14,50 @@ public class ScrollPanel : MonoBehaviour
     [SerializeField]
     protected GameObject cellPrefab;
     protected Dictionary<string, GameObject> dict;
-
-    // Start is called before the first frame update
-    protected virtual void Awake()
+    protected void Awake()
     {
         dict = new Dictionary<string, GameObject>();
+
     }
+
+    public void loadDownloadedList()
+    {
+        foreach (Transform child in transform)
+        {
+            GameObject.Destroy(child.gameObject);
+        }
+        dict.Clear();
+
+        foreach (CachedAssetBundle cached in ABUtils.cachedList)
+        {
+            GameObject prefab = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, this.transform);
+
+            TextMeshProUGUI name = prefab.transform.GetChild(0).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI version = prefab.transform.GetChild(1).GetComponent<TextMeshProUGUI>();
+            TextMeshProUGUI url = prefab.transform.GetChild(2).GetComponent<TextMeshProUGUI>();
+
+            Button btn = prefab.transform.GetChild(3).GetComponent<Button>();
+
+            name.text += cached.name;
+            version.text += cached.version;
+            url.text += cached.url;
+
+            btn.onClick.AddListener(delegate { OnRemoveClick(cached.url); });
+
+            dict.Add(cached.name, prefab);
+        }
+
+        makeScrollPanel();
+    }
+
     protected void setSize(int cellColumn)
     {
-        Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
-        Debug.Log(transform.GetComponent<RectTransform>().rect);
-        if (transform.parent.GetComponent<ScrollRect>().horizontal)
-        {
-            float cellWidth = transform.parent.GetComponent<RectTransform>().sizeDelta.x / columns;
-            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(cellWidth * cellColumn, 0);
-        }
-        else
-        {
-            Debug.Log(transform.parent.GetComponent<RectTransform>().sizeDelta);
-            float cellHeight = transform.parent.GetComponent<RectTransform>().sizeDelta.y / rows;
-            transform.GetComponent<RectTransform>().sizeDelta = new Vector2(0, cellHeight * cellColumn);
-        }
+        float cellHeight = transform.parent.GetComponent<RectTransform>().rect.height / rows;
+        transform.GetComponent<RectTransform>().sizeDelta = new Vector2(0, cellHeight * cellColumn);
     }
     public void makeScrollPanel()
     {
         int cellColumn = rows;
-        if (transform.parent.GetComponent<ScrollRect>().horizontal)
-            cellColumn = columns;
 
         if (dict.Count > rows * columns)
         {
@@ -58,8 +76,8 @@ public class ScrollPanel : MonoBehaviour
 
         float deltaX = width / columns;
         float deltaY = height / rows;
-        float startX = deltaX / 2;
-        float startY = height / 2 - deltaY / 2;
+        float startX = 0;
+        float startY = -deltaY / 2;
 
         int i = 0;
         foreach (var key in list)
@@ -76,5 +94,11 @@ public class ScrollPanel : MonoBehaviour
             dict[key].transform.localPosition = pos;
             i++;
         }
+    }
+
+    public void OnRemoveClick(string url)
+    {
+        ABUtils.RemoveLocal(url);
+        this.loadDownloadedList();
     }
 }

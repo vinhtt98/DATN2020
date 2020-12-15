@@ -98,6 +98,11 @@ public class ABUtils : MonoBehaviour
 
     public void DownloadLink(string url, Slider slider)
     {
+        if (slider != null)
+        {
+            slider.maxValue = 1 + delayValue;
+        }
+
         foreach (CachedAssetBundle entry in cachedList)
         {
             if (entry.url.Equals(url))
@@ -111,10 +116,11 @@ public class ABUtils : MonoBehaviour
 
     public void LoadAllAsset(Slider slider)
     {
-        if (slider != null) {
+        if (slider != null)
+        {
             slider.maxValue = (cachedList.Count + 1) * (1 + delayValue);
         }
-        
+
         string defaultPath = Path.Combine((Application.platform == RuntimePlatform.Android ? "" : "file://") + Application.streamingAssetsPath, "default");
         StartCoroutine(DownloadAsset(defaultPath, 0, DownloadType.LoadLocal, slider));
 
@@ -173,9 +179,11 @@ public class ABUtils : MonoBehaviour
                             LoadLocal(bundle);
                             break;
                     }
+                    bundle.Unload(false);
                 }
             }
-            slider.value += delayValue;
+            if (slider != null)
+                slider.value += delayValue;
         }
     }
 
@@ -196,6 +204,7 @@ public class ABUtils : MonoBehaviour
             cachedList.Add(newEntry);
 
         string json = JsonConvert.SerializeObject(cachedList);
+        Debug.Log(json);
 
         string savePath = Path.Combine(Application.persistentDataPath, "CachedAssetBundleList.json");
         File.WriteAllText(savePath, json);
@@ -218,11 +227,9 @@ public class ABUtils : MonoBehaviour
 
             // Debug.Log(prefab.name);
         }
-
-        bundle.Unload(false);
     }
 
-    private static void RemoveLocal(string url)
+    public static void RemoveLocal(string url)
     {
         foreach (CachedAssetBundle entry in cachedList)
         {

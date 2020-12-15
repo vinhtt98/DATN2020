@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using Newtonsoft.Json;
 using Firebase;
 using Firebase.Database;
@@ -50,9 +51,11 @@ public class RoomManager : MonoBehaviour
     {
         ExportData data = new ExportData();
         data.userId = UserInfo.UserId;
+
         DateTimeOffset localTime = new DateTimeOffset(DateTime.UtcNow);
         data.date = localTime.ToOffset(new TimeSpan(7, 0, 0)).DateTime;
         data.list = new Dictionary<int, ObjectInfo>();
+        
         for (int i = 0; i < deployParent.transform.childCount; i++)
         {
             // Debug.Log(i + " " + deployParent.transform.GetChild(i).name);
@@ -72,6 +75,10 @@ public class RoomManager : MonoBehaviour
         mDatabaseRef.Child("database").Push().SetRawJsonValueAsync(json);
 
         Debug.Log(json);
+    }
+
+    public void OnExitClick() {
+        SceneManager.LoadScene("LoginScene", LoadSceneMode.Single);
     }
 }
 
