@@ -37,8 +37,6 @@ public class ObjectManager : MonoBehaviour
         resizeComponent = GameObject.Find("Interaction").GetComponent<ResizeObject>();
         boxComponent = GameObject.Find("Interaction").GetComponent<BoxTransform>();
 
-        Debug.Log(Application.persistentDataPath);
-
         var test = ABUtils.Instance;
     }
 
@@ -51,7 +49,7 @@ public class ObjectManager : MonoBehaviour
         roomManager.setBtn(!enable);
     }
 
-    public void deployObject(string name, GameObject gameObject, Vector3 position)
+    public void deployObject(GameObject gameObject, DeployObjectProperty property)
     {
         GameObject parent = new GameObject();
         GameObject children = Instantiate(gameObject, Vector3.zero, Quaternion.identity);
@@ -60,9 +58,9 @@ public class ObjectManager : MonoBehaviour
 
         BoxCollider boxCollider = children.GetComponent<BoxCollider>();
         Vector3 pos = -boxCollider.center + new Vector3(0, boxCollider.size.y / 2, 0);
-        if (isOnCeil)
+        if (property.isOnCeil)
             pos.y -= boxCollider.size.y;
-        if (isOnVerticalPlane)
+        if (property.isOnVerticalPlane)
         {
             pos.y -= boxCollider.size.y / 2;
             pos.z -= boxCollider.size.z / 2;
@@ -76,8 +74,9 @@ public class ObjectManager : MonoBehaviour
             trans.gameObject.layer = LayerMask.NameToLayer(deployLayer);
         }
 
+        Vector3 position = Camera.main.ViewportToWorldPoint(new Vector3(0.5f, 0.5f, 5));
         parent.transform.SetPositionAndRotation(position, Quaternion.Euler(0, 0, 0));
-        parent.name = name;
+        parent.name = gameObject.name;
 
         parent.transform.parent = deployParent.transform;
     }

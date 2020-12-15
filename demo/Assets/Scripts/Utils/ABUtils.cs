@@ -1,15 +1,18 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Concurrent;
 using System.IO;
 using UnityEngine;
 using UnityEngine.Networking;
+using System.Runtime;
 using UnityEngine.UI;
 using Newtonsoft.Json;
 
 public class DeployObjectProperty
 {
     public int id { get; set; }
+    public string tag { get; set; }
     public float width { get; set; }
     public float length { get; set; }
     public float height { get; set; }
@@ -60,16 +63,19 @@ public class ABUtils : MonoBehaviour
     public static List<CachedAssetBundle> cachedList;
     public static ConcurrentDictionary<int, GameObject> goDict;
     public static ConcurrentDictionary<int, DeployObjectProperty> goPropDict;
+    public static ConcurrentDictionary<int, string> tagDict;
     public enum DownloadType
     {
         SaveLocal,
         LoadLocal
     }
+    private const float delayValue = 0.5f;
     private void Awake()
     {
         cachedList = new List<CachedAssetBundle>();
         goDict = new ConcurrentDictionary<int, GameObject>();
         goPropDict = new ConcurrentDictionary<int, DeployObjectProperty>();
+        tagDict = new ConcurrentDictionary<int, string>();
 
         string cachedPath = Path.Combine(Application.persistentDataPath, "CachedAssetBundleList.json");
         try
@@ -87,7 +93,7 @@ public class ABUtils : MonoBehaviour
 
         // DownloadLink("https://drive.google.com/uc?export=download&id=1f2dmogGDfDwKs5J-S1-FPmvaiMeQO6pJ", null);
         // RemoveLocal("https://drive.google.com/uc?export=download&id=1f2dmogGDfDwKs5J-S1-FPmvaiMeQO6pJ");
-        LoadAllAsset();
+        // Caching.ClearAllCachedVersions("default");
     }
 
     public void DownloadLink(string url, Slider slider)
@@ -103,14 +109,18 @@ public class ABUtils : MonoBehaviour
         StartCoroutine(DownloadAsset(url, 1, DownloadType.SaveLocal, slider));
     }
 
-    public void LoadAllAsset()
+    public void LoadAllAsset(Slider slider)
     {
+        if (slider != null) {
+            slider.maxValue = (cachedList.Count + 1) * (1 + delayValue);
+        }
+        
         string defaultPath = Path.Combine((Application.platform == RuntimePlatform.Android ? "" : "file://") + Application.streamingAssetsPath, "default");
-        StartCoroutine(DownloadAsset(defaultPath, 0, DownloadType.LoadLocal, null));
+        StartCoroutine(DownloadAsset(defaultPath, 0, DownloadType.LoadLocal, slider));
 
         foreach (CachedAssetBundle entry in cachedList)
         {
-            StartCoroutine(DownloadAsset(entry.url, entry.version, DownloadType.LoadLocal, null));
+            StartCoroutine(DownloadAsset(entry.url, entry.version, DownloadType.LoadLocal, slider));
         }
     }
 
@@ -135,13 +145,13 @@ public class ABUtils : MonoBehaviour
                  * an int division <somethingSmallerThan100>/100 = 0
                  */
                 if (slider != null)
-                    slider.value = request.downloadProgress - prevProgres;
+                    slider.value += request.downloadProgress - prevProgres;
                 prevProgres = request.downloadProgress;
                 Debug.Log("Downloading: " + url + "\nVersion: " + version + "\nProgress: " + request.downloadProgress * 100f);
                 yield return null;
             }
             if (slider != null)
-                slider.value = 1;
+                slider.value += 1 - prevProgres;
             Debug.Log("Downloading: " + url + "\nVersion: " + version + "\nProgress: Finished!");
             if (request.isNetworkError || request.isHttpError)
             {
@@ -165,6 +175,7 @@ public class ABUtils : MonoBehaviour
                     }
                 }
             }
+            slider.value += delayValue;
         }
     }
 
@@ -194,6 +205,7 @@ public class ABUtils : MonoBehaviour
     {
         //Load all properties
         TextAsset config = bundle.LoadAsset("config") as TextAsset;
+        Debug.Log(config.text);
 
         List<DeployObjectProperty> properties = JsonConvert.DeserializeObject<List<DeployObjectProperty>>(config.text);
         foreach (DeployObjectProperty property in properties)
@@ -202,8 +214,9 @@ public class ABUtils : MonoBehaviour
             prefab.name = property.id.ToString();
             goDict.TryAdd(property.id, prefab);
             goPropDict.TryAdd(property.id, property);
+            tagDict.TryAdd(property.id, property.tag);
 
-            Debug.Log(prefab.name);
+            // Debug.Log(prefab.name);
         }
 
         bundle.Unload(false);
@@ -215,6 +228,12 @@ public class ABUtils : MonoBehaviour
         {
             if (entry.url.Equals(url))
             {
+                Caching.ClearAllCachedVersions(entry.name);
+
+                Uri uri = new Uri(url);
+                string bundle_name = System.IO.Path.GetFileNameWithoutExtension(uri.AbsolutePath);
+                Caching.ClearAllCachedVersions(bundle_name);
+
                 cachedList.Remove(entry);
                 break;
             }
@@ -232,7 +251,12 @@ public class ABUtils : MonoBehaviour
         GameObject prefab;
         if (goDict.TryGetValue(id, out prefab))
         {
-            objectManager.deployObject(prefab.name, prefab, new Vector3(0, 0, 5));
+            DeployObjectProperty property;
+            if (goPropDict.TryGetValue(id, out property))
+            {
+                objectManager.setTargetGameObject(null);
+                objectManager.deployObject(prefab, property);
+            }
         }
         else
         {

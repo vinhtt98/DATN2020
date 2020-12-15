@@ -1,0 +1,11 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources tools:keep="@string/firebase_database_url,@string/gcm_defaultSenderId,@string/google_storage_bucket,@string/project_id,@string/google_api_key,@string/google_crash_reporting_api_key,@string/google_app_id,@string/default_web_client_id" xmlns:tools="http://schemas.android.com/tools">
+  <string name="firebase_database_url" translatable="false">https://arfurniture-68196-default-rtdb.firebaseio.com</string>
+  <string name="gcm_defaultSenderId" translatable="false">679294806681</string>
+  <string name="google_storage_bucket" translatable="false">arfurniture-68196.appspot.com</string>
+  <string name="project_id" translatable="false">arfurniture-68196</string>
+  <string name="google_api_key" translatable="false">AIzaSyCaVIYj9NG0uXHtuu3N9PApRfXjkiHS-TE</string>
+  <string name="google_crash_reporting_api_key" translatable="false">AIzaSyCaVIYj9NG0uXHtuu3N9PApRfXjkiHS-TE</string>
+  <string name="google_app_id" translatable="false">1:679294806681:android:5d47ba46a7e8efffcda608</string>
+  <string name="default_web_client_id" translatable="false">679294806681-te56mpvn2k3n5uq5s4hrklrac4hl0mpt.apps.googleusercontent.com</string>
+</resources>
