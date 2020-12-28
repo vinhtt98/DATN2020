@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 1331087357872569781}
   - component: {fileID: 8195008336444792479}
   - component: {fileID: 7800936679365855996}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: AR Default Point Cloud
   m_TagString: Untagged
   m_Icon: {fileID: 0}

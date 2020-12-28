@@ -12,13 +12,13 @@ public class AddPanelPage : ScrollPanel
     public void addThumbnail(GameObject prefab)
     {
         GameObject tnPrefab = Instantiate(cellPrefab, Vector3.zero, Quaternion.identity, this.transform);
-        AddObject addObject = GameObject.FindObjectOfType<AddObject>();
+        AddRemoveObject addObject = GameObject.FindObjectOfType<AddRemoveObject>();
 
         Rect rect = tnPrefab.GetComponent<RectTransform>().rect;
         tnPrefab.GetComponent<RawImage>().texture = RuntimePreviewGenerator.GenerateModelPreview(prefab.transform, (int)rect.width, (int)rect.height);
 
         tnPrefab.GetComponent<Button>().onClick.AddListener(delegate { OnThumbnailClick(prefab.name); });
-        tnPrefab.GetComponent<Button>().onClick.AddListener(delegate { addObject.onBtnClick(); });
+        tnPrefab.GetComponent<Button>().onClick.AddListener(delegate { addObject.onAddBtnClick(); });
 
         dict.Add(prefab.name, tnPrefab);
     }

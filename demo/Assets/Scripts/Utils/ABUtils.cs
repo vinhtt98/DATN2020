@@ -84,12 +84,23 @@ public class ABUtils : MonoBehaviour
             var fileContents = sr.ReadToEnd();
             sr.Close();
             cachedList = JsonConvert.DeserializeObject<List<CachedAssetBundle>>(fileContents);
+            if (cachedList == null)
+            {
+                cachedList = new List<CachedAssetBundle>();
+                File.WriteAllText(cachedPath, "");
+                Debug.Log("File CachedAssetBundleList.json created");
+            }
+
         }
         catch (System.Exception e)
         {
             Debug.Log(e.Message);
             File.WriteAllText(cachedPath, "");
+            Debug.Log("File CachedAssetBundleList.json created");
         }
+
+        // Debug.Log("Init ABUtils");
+        // Debug.Log("Init cachedList.Count" + cachedList.Count);
 
         // DownloadLink("https://drive.google.com/uc?export=download&id=1f2dmogGDfDwKs5J-S1-FPmvaiMeQO6pJ", null);
         // RemoveLocal("https://drive.google.com/uc?export=download&id=1f2dmogGDfDwKs5J-S1-FPmvaiMeQO6pJ");
@@ -116,8 +127,14 @@ public class ABUtils : MonoBehaviour
 
     public void LoadAllAsset(Slider slider)
     {
+        Debug.Log("Load all");
+
         if (slider != null)
         {
+            Debug.Log("slider.maxValue" + slider.maxValue);
+            Debug.Log("cachedList.Count" + cachedList.Count);
+            Debug.Log("delayValue" + delayValue);
+
             slider.maxValue = (cachedList.Count + 1) * (1 + delayValue);
         }
 
@@ -204,7 +221,7 @@ public class ABUtils : MonoBehaviour
             cachedList.Add(newEntry);
 
         string json = JsonConvert.SerializeObject(cachedList);
-        Debug.Log(json);
+        // Debug.Log(json);
 
         string savePath = Path.Combine(Application.persistentDataPath, "CachedAssetBundleList.json");
         File.WriteAllText(savePath, json);

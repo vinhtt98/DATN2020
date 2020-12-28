@@ -10,6 +10,7 @@ public class ObjectManager : MonoBehaviour
     public GameObject deployParent;
     private RoomManager roomManager;
     private ResizeObject resizeComponent;
+    private AddRemoveObject addRemoveObject;
     private BoxTransform boxComponent;
     public Vector3 objectSize;
     public bool isCanResize;
@@ -35,6 +36,7 @@ public class ObjectManager : MonoBehaviour
 
         roomManager = transform.GetComponent<RoomManager>();
         resizeComponent = GameObject.Find("Interaction").GetComponent<ResizeObject>();
+        addRemoveObject = transform.GetComponent<AddRemoveObject>();
         boxComponent = GameObject.Find("Interaction").GetComponent<BoxTransform>();
 
         var test = ABUtils.Instance;
@@ -46,7 +48,9 @@ public class ObjectManager : MonoBehaviour
         bool enable = (gameObject != null);
         boxComponent.enabled = enable;
         resizeComponent.setBtn(enable);
+        addRemoveObject.setAnRBtns(!enable);
         roomManager.setBtn(!enable);
+        roomManager.isEdit = true;
     }
 
     public void deployObject(GameObject gameObject, DeployObjectProperty property)
@@ -79,6 +83,8 @@ public class ObjectManager : MonoBehaviour
         parent.name = gameObject.name;
 
         parent.transform.parent = deployParent.transform;
+
+        roomManager.isEdit = true;
     }
 
     private void setBoxCollider(GameObject gameObject)

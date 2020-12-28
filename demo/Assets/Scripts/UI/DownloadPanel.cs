@@ -68,8 +68,8 @@ public class DownloadPanel : MonoBehaviour
         var list = dict.Keys.ToList();
         list.Sort();
 
-        Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
-        Debug.Log(transform.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.GetComponent<RectTransform>().rect);
 
         float width = transform.GetComponent<RectTransform>().rect.width;
         float height = transform.GetComponent<RectTransform>().rect.height;

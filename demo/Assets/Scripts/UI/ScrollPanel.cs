@@ -21,8 +21,8 @@ public class ScrollPanel : MonoBehaviour
     }
     protected void setSize(int cellColumn)
     {
-        Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
-        Debug.Log(transform.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.GetComponent<RectTransform>().rect);
         if (transform.parent.GetComponent<ScrollRect>().horizontal)
         {
             float cellWidth = transform.parent.GetComponent<RectTransform>().sizeDelta.x / columns;
@@ -50,8 +50,8 @@ public class ScrollPanel : MonoBehaviour
         var list = dict.Keys.ToList();
         list.Sort();
 
-        Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
-        Debug.Log(transform.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.parent.GetComponent<RectTransform>().rect);
+        // Debug.Log(transform.GetComponent<RectTransform>().rect);
 
         float width = transform.GetComponent<RectTransform>().rect.width;
         float height = transform.GetComponent<RectTransform>().rect.height;

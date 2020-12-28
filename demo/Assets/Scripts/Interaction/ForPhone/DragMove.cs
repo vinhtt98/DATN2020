@@ -14,6 +14,7 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private ARSessionOrigin arOrigin;
     private ARReferencePointManager arReferencePointManager;
     private Pose placementPose;
+    private ARPlane placementPlane;
     private bool placementPoseIsValid = false;
 
     public void OnBeginDrag(PointerEventData eventData)
@@ -21,6 +22,10 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         // Debug.Log("Drag Begin");
         objectManager.setTargetGameObject(null);
         objectManager.setTargetGameObject(this.gameObject);
+        if (this.gameObject.GetComponent<ARReferencePoint>() == null)
+        {
+            // this.gameObject.AddComponent<ARReferencePoint>();
+        }
         moveComponent.OnSelected();
         checkComponent.OnSelected();
     }
@@ -31,11 +36,12 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
         if (placementPoseIsValid)
         {
             Vector3 pos = placementPose.position;
-            pos.x += 0.01f;
-            pos.y += 0.01f;
-            pos.z += 0.01f;
+            // pos.x += 0.01f;
+            // pos.y += 0.01f;
+            // pos.z += 0.01f;
             moveComponent.OnDrag(pos);
         }
+        ARReferencePoint point = arReferencePointManager.TryAttachReferencePoint(placementPlane, placementPose);
         checkComponent.UpdateValid();
     }
 
@@ -60,17 +66,17 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
     private void UpdatePlacementPose(Vector2 touchPos)
     {
         var hits = new List<ARRaycastHit>();
-        arOrigin.Raycast(touchPos, hits, TrackableType.Planes);
+        arOrigin.Raycast(touchPos, hits, TrackableType.PlaneWithinBounds);
 
         placementPoseIsValid = hits.Count > 0;
 
         if (placementPoseIsValid)
         {
             placementPose = hits[0].pose;
+            placementPlane = arOrigin.GetComponent<ARPlaneManager>().TryGetPlane(hits[0].trackableId);
 
-            PlaneAlignment align = arOrigin.GetComponent<ARPlaneManager>().TryGetPlane(hits[0].trackableId).boundedPlane.Alignment;
+            PlaneAlignment align = placementPlane.boundedPlane.Alignment;
             placementPoseIsValid |= (objectManager.isOnVerticalPlane && (align != PlaneAlignment.Horizontal));
-
             placementPoseIsValid |= (objectManager.isOnCeil && (Camera.main.ScreenToWorldPoint(touchPos).y < placementPose.position.y));
 
             if (!placementPoseIsValid)
