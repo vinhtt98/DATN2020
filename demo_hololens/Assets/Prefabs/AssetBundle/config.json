@@ -1,0 +1,153 @@
+[
+    {
+        "id": 1,
+        "tag": "Bed",
+        "length": 2.0,
+        "width": 4.0,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10001,
+        "tag": "Chair",
+        "length": 0.7,
+        "width": 0.8,
+        "height": 1.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10002,
+        "tag": "Chair",
+        "length": 4.2,
+        "width": 1.8,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10003,
+        "tag": "Chair",
+        "length": 4.0,
+        "width": 1.5,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10004,
+        "tag": "Chair",
+        "length": 4.0,
+        "width": 2.8,
+        "height": 1.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10005,
+        "tag": "Chair",
+        "length": 1.6,
+        "width": 1.4,
+        "height": 1.4,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 10006,
+        "tag": "Chair",
+        "length": 0.5,
+        "width": 0.5,
+        "height": 0.6,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20001,
+        "tag": "Table",
+        "length": 0.6,
+        "width": 0.5,
+        "height": 0.5,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20002,
+        "tag": "Table",
+        "length": 1.4,
+        "width": 2.8,
+        "height": 0.8,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 20003,
+        "tag": "Table",
+        "length": 1.4,
+        "width": 2.8,
+        "height": 0.8,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 30001,
+        "tag": "Wardrobe",
+        "length": 1.6,
+        "width": 0.9,
+        "height": 2.3,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 40001,
+        "tag": "Other",
+        "length": 1.8,
+        "width": 0.7,
+        "height": 3.4,
+        "isCanResize": true,
+        "isOnVerticalPlane": false,
+        "isOnCeil": false
+    },
+    {
+        "id": 40002,
+        "tag": "Other",
+        "length": 1.6,
+        "width": 0.2,
+        "height": 3.0,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    },
+    {
+        "id": 40003,
+        "tag": "Other",
+        "length": 1.7,
+        "width": 0.3,
+        "height": 3.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    },
+    {
+        "id": 40004,
+        "tag": "Other",
+        "length": 1.7,
+        "width": 0.3,
+        "height": 3.1,
+        "isCanResize": true,
+        "isOnVerticalPlane": true,
+        "isOnCeil": false
+    }
+    
+]
