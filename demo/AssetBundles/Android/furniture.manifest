@@ -1,12 +1,12 @@
 ManifestFileVersion: 0
-CRC: 3224114570
+CRC: 2939419784
 Hashes:
   AssetFileHash:
     serializedVersion: 2
-    Hash: ea30760d9eb36b0b1f6d25c6dba860c0
+    Hash: 20242ade65b78acf57065dc401f6d808
   TypeTreeHash:
     serializedVersion: 2
-    Hash: 23b0a8fdb0c7996c133ed5c8e935d3c6
+    Hash: 8839fda7701739b4ae8f22f955532b85
 HashAppended: 0
 ClassTypes:
 - Class: 1
@@ -25,21 +25,27 @@ ClassTypes:
   Script: {instanceID: 0}
 - Class: 49
   Script: {instanceID: 0}
+- Class: 114
+  Script: {fileID: 11500000, guid: 1abc3a461cae37b44954f737766c0681, type: 3}
+- Class: 114
+  Script: {fileID: 11500000, guid: 46741d0fa42c58b4aa1b0b113b74c9a2, type: 3}
+- Class: 115
+  Script: {instanceID: 0}
 Assets:
-- Assets/Prefabs/AssetBundle/Chair/10005.prefab
-- Assets/Prefabs/AssetBundle/Other/40001.prefab
-- Assets/Prefabs/AssetBundle/Table/20001.prefab
-- Assets/Prefabs/AssetBundle/Chair/10002.prefab
-- Assets/Prefabs/AssetBundle/Other/40004.prefab
-- Assets/Prefabs/AssetBundle/Bed/1.prefab
-- Assets/Prefabs/AssetBundle/config.json
-- Assets/Prefabs/AssetBundle/Chair/10003.prefab
-- Assets/Prefabs/AssetBundle/Wardrobe/30001.prefab
-- Assets/Prefabs/AssetBundle/Chair/10001.prefab
-- Assets/Prefabs/AssetBundle/Other/40002.prefab
-- Assets/Prefabs/AssetBundle/Chair/10004.prefab
-- Assets/Prefabs/AssetBundle/Chair/10006.prefab
-- Assets/Prefabs/AssetBundle/Table/20002.prefab
-- Assets/Prefabs/AssetBundle/Other/40003.prefab
-- Assets/Prefabs/AssetBundle/Table/20003.prefab
+- Assets/Resources/Prefabs/AssetBundle/Chair/10005.prefab
+- Assets/Resources/Prefabs/AssetBundle/Other/40001.prefab
+- Assets/Resources/Prefabs/AssetBundle/Table/20001.prefab
+- Assets/Resources/Prefabs/AssetBundle/Chair/10002.prefab
+- Assets/Resources/Prefabs/AssetBundle/Other/40004.prefab
+- Assets/Resources/Prefabs/AssetBundle/Bed/1.prefab
+- Assets/Resources/Prefabs/AssetBundle/config.json
+- Assets/Resources/Prefabs/AssetBundle/Chair/10003.prefab
+- Assets/Resources/Prefabs/AssetBundle/Wardrobe/30001.prefab
+- Assets/Resources/Prefabs/AssetBundle/Chair/10001.prefab
+- Assets/Resources/Prefabs/AssetBundle/Other/40002.prefab
+- Assets/Resources/Prefabs/AssetBundle/Chair/10004.prefab
+- Assets/Resources/Prefabs/AssetBundle/Chair/10006.prefab
+- Assets/Resources/Prefabs/AssetBundle/Table/20002.prefab
+- Assets/Resources/Prefabs/AssetBundle/Other/40003.prefab
+- Assets/Resources/Prefabs/AssetBundle/Table/20003.prefab
 Dependencies: []

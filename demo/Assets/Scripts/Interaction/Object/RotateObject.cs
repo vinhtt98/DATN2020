@@ -10,9 +10,13 @@ public class RotateObject : MonoBehaviour
     public Vector3 startPoint;
     private Vector3 startValue;
 
-    public void OnSelected(Vector3 startPoint) {
+    public void OnSelected(Vector3 startPoint)
+    {
         ObjectManager objMngr = GameObject.Find("GameManager").GetComponent<ObjectManager>();
         targetGameObject = objMngr.targetGameObject;
+
+        targetGameObject.GetComponent<InteractionObject>().SetSpecialInteraction(false);
+
         isOnVerticalPlane = objMngr.isOnVerticalPlane;
         startValue = targetGameObject.transform.localEulerAngles;
         this.startPoint = startPoint;
@@ -30,11 +34,12 @@ public class RotateObject : MonoBehaviour
         targetGameObject.transform.localEulerAngles = newValue;
     }
 
-    private float calcLength(Vector2 pos) {
+    private float calcLength(Vector2 pos)
+    {
         Vector3 endPoint = pos;
         float direction = -1;
         if (endPoint.x < startPoint.x)
             direction = 1;
-        return direction * Mathf.Sqrt((endPoint.x - startPoint.x)*(endPoint.x - startPoint.x) + (endPoint.y - startPoint.y)*(endPoint.y - startPoint.y));
+        return direction * Mathf.Sqrt((endPoint.x - startPoint.x) * (endPoint.x - startPoint.x) + (endPoint.y - startPoint.y) * (endPoint.y - startPoint.y));
     }
 }

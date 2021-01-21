@@ -41,7 +41,6 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
             // pos.z += 0.01f;
             moveComponent.OnDrag(pos);
         }
-        ARReferencePoint point = arReferencePointManager.TryAttachReferencePoint(placementPlane, placementPose);
         checkComponent.UpdateValid();
     }
 
@@ -72,15 +71,23 @@ public class DragMove : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDrag
 
         if (placementPoseIsValid)
         {
-            placementPose = hits[0].pose;
-            placementPlane = arOrigin.GetComponent<ARPlaneManager>().TryGetPlane(hits[0].trackableId);
+            ARPlane newPlacementPlane = arOrigin.GetComponent<ARPlaneManager>().TryGetPlane(hits[0].trackableId);
 
-            PlaneAlignment align = placementPlane.boundedPlane.Alignment;
-            placementPoseIsValid |= (objectManager.isOnVerticalPlane && (align != PlaneAlignment.Horizontal));
-            placementPoseIsValid |= (objectManager.isOnCeil && (Camera.main.ScreenToWorldPoint(touchPos).y < placementPose.position.y));
+            PlaneAlignment align = newPlacementPlane.boundedPlane.Alignment;
+            if (objectManager.isOnVerticalPlane)
+            {
+                placementPoseIsValid = align != PlaneAlignment.Horizontal;
+            }
+            if (objectManager.isOnCeil)
+            {
+                placementPoseIsValid = Camera.main.ScreenToWorldPoint(touchPos).y < placementPose.position.y;
+            }
 
             if (!placementPoseIsValid)
                 return;
+
+            placementPose = hits[0].pose;
+            placementPlane = newPlacementPlane;
 
             var cameraForward = Camera.current.transform.forward;
             var cameraBearing = new Vector3(cameraForward.x, 0, cameraForward.z).normalized;

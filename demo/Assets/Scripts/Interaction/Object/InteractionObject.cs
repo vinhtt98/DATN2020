@@ -12,7 +12,7 @@ public class InteractionObject : MonoBehaviour, IPointerDownHandler, IPointerCli
     private RotateObject rotateComponent;
     private ResizeObject resizeComponent;
     private BoxTransform boxComponent;
-    public float tapTimeLength;
+    public float tapTimeLength = 0.5f;
     private float tapCountdown;
     //Implement handler
     public void OnBeginDrag(PointerEventData eventData)
@@ -33,24 +33,53 @@ public class InteractionObject : MonoBehaviour, IPointerDownHandler, IPointerCli
     public void OnPointerClick(PointerEventData eventData)
     {
         Debug.Log("Clicked: " + eventData.pointerCurrentRaycast.gameObject.name);
-        if (objectManager.targetGameObject != this.gameObject)
-        {
-            objectManager.setTargetGameObject(null);
-            objectManager.setTargetGameObject(this.gameObject);
 
-            int id = int.Parse(this.gameObject.name);
-            DeployObjectProperty property;
-            if (ABUtils.goPropDict.TryGetValue(id, out property))
+
+        if (tapCountdown > 0)
+        {
+            if (objectManager.targetGameObject != this.gameObject)
             {
-                objectManager.objectSize = property.objectSize;
-                objectManager.isCanResize = property.isCanResize;
-                objectManager.isOnVerticalPlane = property.isOnVerticalPlane;
-                objectManager.isOnCeil = property.isOnCeil;
+                objectManager.setTargetGameObject(null);
+                objectManager.setTargetGameObject(this.gameObject);
+
+                int id = int.Parse(this.gameObject.name);
+                DeployObjectProperty property;
+                if (ABUtils.goPropDict.TryGetValue(id, out property))
+                {
+                    objectManager.objectSize = property.objectSize;
+                    objectManager.isCanResize = property.isCanResize;
+                    objectManager.isOnVerticalPlane = property.isOnVerticalPlane;
+                    objectManager.isOnCeil = property.isOnCeil;
+                }
             }
+
+            SetSpecialInteraction(true);
+
+            tapCountdown = 0;
         }
         else
         {
-            objectManager.setTargetGameObject(null);
+            if (objectManager.targetGameObject != this.gameObject)
+            {
+                objectManager.setTargetGameObject(null);
+                objectManager.setTargetGameObject(this.gameObject);
+
+                int id = int.Parse(this.gameObject.name);
+                DeployObjectProperty property;
+                if (ABUtils.goPropDict.TryGetValue(id, out property))
+                {
+                    objectManager.objectSize = property.objectSize;
+                    objectManager.isCanResize = property.isCanResize;
+                    objectManager.isOnVerticalPlane = property.isOnVerticalPlane;
+                    objectManager.isOnCeil = property.isOnCeil;
+                }
+            }
+            else
+            {
+                objectManager.setTargetGameObject(null);
+            }
+
+            tapCountdown = tapTimeLength;
         }
     }
 
@@ -84,5 +113,27 @@ public class InteractionObject : MonoBehaviour, IPointerDownHandler, IPointerCli
         boxComponent = GameObject.Find("Interaction").GetComponent<BoxTransform>();
 
         boxComponent.enabled = false;
+    }
+
+    private void Update()
+    {
+        if (tapCountdown > 0)
+        {
+            tapCountdown -= Time.deltaTime;
+        }
+    }
+
+    public void SetSpecialInteraction(bool value)
+    {
+        SpecialIneraction[] specials = this.transform.GetChild(0).GetComponents<SpecialIneraction>();
+        if (specials != null && specials.Length > 0)
+        {
+            Debug.Log("Do special actions!");
+            foreach (SpecialIneraction special in specials)
+                if (value)
+                    special.DoAction();
+                else
+                    special.StopAction();
+        }
     }
 }

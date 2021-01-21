@@ -35,6 +35,7 @@ public class AddRemoveObject : MonoBehaviour
 
     public void onRemoveBtnClick()
     {
+        objectManager.targetGameObject.GetComponent<InteractionObject>().SetSpecialInteraction(false);
         Destroy(objectManager.targetGameObject);
         objectManager.setTargetGameObject(null);
     }

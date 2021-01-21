@@ -69,6 +69,16 @@ public class CheckValidObject : MonoBehaviour
         objectManager.isValidPosition = isValid;
     }
 
+    public void UpdateValid(bool value)
+    {
+        bool isValid = value;
+        if (isValid)
+            fillObjecct(green);
+        else
+            fillObjecct(red);
+        objectManager.isValidPosition = isValid;
+    }
+
     private void fillObjecct(Material val)
     {
         if (targetRenderers != null)
@@ -100,5 +110,7 @@ public class CheckValidObject : MonoBehaviour
                 i++;
             }
         }
+
+        targetRenderers = null;
     }
 }

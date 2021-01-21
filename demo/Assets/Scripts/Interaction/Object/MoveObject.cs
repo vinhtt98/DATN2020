@@ -9,6 +9,7 @@ public class MoveObject : MonoBehaviour
     public void OnSelected()
     {
         targetGameObject = GameObject.Find("GameManager").GetComponent<ObjectManager>().targetGameObject;
+        targetGameObject.GetComponent<InteractionObject>().SetSpecialInteraction(false);
     }
 
     public void OnDeselected()
@@ -23,6 +24,6 @@ public class MoveObject : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 }

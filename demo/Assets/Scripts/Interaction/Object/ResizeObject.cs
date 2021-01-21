@@ -52,6 +52,9 @@ public class ResizeObject : MonoBehaviour
     {
         ObjectManager objectManager = GameObject.Find("GameManager").GetComponent<ObjectManager>();
         targetGameObject = objectManager.targetGameObject;
+
+        targetGameObject.GetComponent<InteractionObject>().SetSpecialInteraction(false);
+
         resizePanel.GetComponent<Animator>().ResetTrigger("MakeTransitionOut");
         resizePanel.GetComponent<Animator>().SetTrigger("MakeTransitionIn");
         resizeBtn.GetComponent<ToggleButton>().setHold(true);

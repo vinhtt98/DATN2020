@@ -243,6 +243,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3283072283071801991}
+  - component: {fileID: 3706340426152224485}
   m_Layer: 0
   m_Name: 20000
   m_TagString: Untagged
@@ -269,6 +270,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &3706340426152224485
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3283072283071706791}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 46741d0fa42c58b4aa1b0b113b74c9a2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  drawers:
+  - {fileID: 3283072283071801987}
+  - {fileID: 3283072283071801985}
+  - {fileID: 3283072283071801999}
+  - {fileID: 3283072283071801997}
+  drawLength: 0.5
+  startPoint: 3.4028235e+38
+  speed: 0.15
+  isOpening: 0
+  sCollider: []
 --- !u!1 &3283072283071706797
 GameObject:
   m_ObjectHideFlags: 0
